@@ -8,7 +8,7 @@ A headless virtualization engine for [Yew](https://yew.rs) applications, aligned
 
 ## Live demo
 
-- [**Tailwind example**](https://blackcokpit.github.io/yew-virtual/example/) — vertical and horizontal virtual lists with Tailwind, live stats, and copy aimed at real integrations.
+- [**Tailwind example**](https://black-cockpit.github.io/yew-virtual//example/) — vertical and horizontal virtual lists with Tailwind, live stats, and copy aimed at real integrations.
 
 ## Overview
 
