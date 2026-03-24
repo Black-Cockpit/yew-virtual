@@ -1,0 +1,34 @@
+# Tailwind Virtual List — Example Application Manifest
+#
+# Trunk-built WASM demo: vertical and horizontal virtual lists styled with Tailwind CSS.
+# Not published to crates.io; documents how to depend on `yew-virtual` from an app crate.
+
+[package]
+
+# Binary crate name for `trunk build` / `trunk serve`.
+name = "tailwind-virtual-list"
+
+# Version is independent from the library; bump only if you publish this example.
+version = "0.1.0"
+
+# Rust edition (match the workspace library for consistency).
+edition = "2021"
+
+# Description for local tooling / `cargo metadata` (optional for unpublished examples).
+description = "Tailwind CSS example for yew-virtual showing virtualized lists and grids"
+
+# Dependencies — versions from the workspace root; enable Yew CSR for the browser bundle.
+[dependencies]
+
+# Yew with client-side rendering (required for `trunk serve` in the browser).
+yew = { workspace = true, features = ["csr"] }
+
+# Local path to `yew-virtual` in this repository.
+# On crates.io, applications use: `yew-virtual = "0.1"` (and matching feature flags).
+yew-virtual = { path = "../../crates/yew-virtual" }
+
+# DOM APIs for scroll handlers and the non-passive wheel listener in the horizontal demo.
+web-sys = { workspace = true }
+
+# Closures and casts for the wheel listener (`Closure`, `JsCast`).
+wasm-bindgen = { workspace = true }

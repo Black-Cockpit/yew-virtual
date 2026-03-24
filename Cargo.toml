@@ -1,0 +1,54 @@
+# Yew Virtual — Cargo Workspace
+#
+# Headless list and grid virtualization for Yew, in the spirit of TanStack Virtual.
+# The workspace contains the published library crate and a Trunk-built Tailwind example.
+
+[workspace]
+
+# Unify dependency versions across members (Cargo.lock is shared).
+resolver = "2"
+
+# Workspace members: the `yew-virtual` package and the Tailwind demonstration app.
+members = ["crates/yew-virtual", "examples/tailwind-virtual-list"]
+
+# Shared dependency versions and feature sets.
+#
+# Member crates reference these with `{ workspace = true }` so versions stay in one place.
+# The `web-sys` feature list is the union of what the library and the example need.
+[workspace.dependencies]
+
+# Yew framework (`default-features = false` so the library stays renderer-agnostic; apps enable `csr` / `ssr` on `yew`).
+yew = { version = "0.21", default-features = false }
+
+# Browser API bindings shared by `yew-virtual` hooks and the Tailwind example.
+web-sys = { version = "0.3", features = [
+    "AddEventListenerOptions",
+    "DomRectReadOnly",
+    "Element",
+    "HtmlElement",
+    "ResizeObserver",
+    "ResizeObserverEntry",
+    "ScrollBehavior",
+    "ScrollToOptions",
+    "WheelEvent",
+    "Window",
+] }
+
+# JavaScript value types (ResizeObserver callbacks, timestamps in hooks).
+js-sys = "0.3"
+
+# Rust-to-JavaScript interop for closures and casts in hooks.
+wasm-bindgen = "0.2"
+
+# Error derive macros for `VirtualizerError` and related types.
+thiserror = "2"
+
+# WebAssembly test harness (integration tests that compile to WASM when needed).
+wasm-bindgen-test = "0.3"
+
+# Fixture-style test utilities for native test targets.
+rstest = "0.24"
+
+# CI and local `cargo clippy` treat warnings as failures for the whole workspace.
+[workspace.metadata]
+clippy = { deny = ["warnings"] }

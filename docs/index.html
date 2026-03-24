@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yew-virtual — Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+            color: #fff;
+            padding: 64px 24px 48px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.92;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 800px;
+            margin: -32px auto 0;
+            padding: 0 24px 64px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .card a.btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #4f46e5;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .card a.btn:hover {
+            background: #4338ca;
+        }
+
+        .card a.btn.secondary {
+            background: #64748b;
+        }
+
+        .card a.btn.secondary:hover {
+            background: #475569;
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .badge-row img {
+            height: 20px;
+        }
+
+        .features li {
+            font-size: 0.9rem;
+            color: #475569;
+            padding: 4px 0;
+            list-style: none;
+        }
+
+        .features li::before {
+            content: "✓ ";
+            color: #22c55e;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        footer a {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 16px;
+            font-size: 0.9rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #475569;
+            background: #f8fafc;
+        }
+
+        td {
+            color: #1e293b;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .links a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>yew-virtual</h1>
+        <p>
+            Headless list and grid virtualization for <a href="https://yew.rs" style="color: #e0e7ff;">Yew</a>,
+            inspired by <a href="https://tanstack.com/virtual" style="color: #e0e7ff;">TanStack Virtual</a>.
+            Ship large scroll surfaces in Rust and WebAssembly with minimal DOM nodes.
+        </p>
+        <div class="badge-row">
+            <a href="https://github.com/Black-Cockpit/yew-virtual/actions/workflows/ci.yml">
+                <img src="https://github.com/Black-Cockpit/yew-virtual/actions/workflows/ci.yml/badge.svg"
+                    alt="CI status" />
+            </a>
+            <a href="https://crates.io/crates/yew-virtual">
+                <img src="https://img.shields.io/crates/v/yew-virtual.svg" alt="Crates.io version" />
+            </a>
+            <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" />
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>Interactive example</h2>
+            <p>
+                The Tailwind demo runs vertical and horizontal virtual lists with live stats, gap and padding,
+                and integration-oriented copy you can adapt in your own app.
+            </p>
+            <a class="btn" href="./example/">Open Tailwind example →</a>
+        </div>
+
+        <div class="card">
+            <h2>Public API</h2>
+            <p>High-level entry points for apps and for headless use without Yew markup.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Virtualizer</code></td>
+                        <td>Core engine: range math, overscan, scroll alignment, measurements</td>
+                    </tr>
+                    <tr>
+                        <td><code>VirtualizerOptions</code></td>
+                        <td>Item count, size mode, direction, gap, padding, overscan, RTL</td>
+                    </tr>
+                    <tr>
+                        <td><code>use_virtualizer</code></td>
+                        <td>Hook: scroll container ref, passive scroll listener, resize observer</td>
+                    </tr>
+                    <tr>
+                        <td><code>use_window_virtualizer</code></td>
+                        <td>Hook: document / window scroll with the same engine</td>
+                    </tr>
+                    <tr>
+                        <td><code>VirtualizerHandle</code></td>
+                        <td>Read virtual items, total size, scroll helpers, item observers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Features</h2>
+            <ul class="features">
+                <li>Headless core — you own markup, layout, and styling</li>
+                <li>Vertical and horizontal scrolling, including RTL horizontal offsets</li>
+                <li>Fixed, estimated, and dynamic item sizing with optional measurement</li>
+                <li>Overscan, gap, padding, and scroll-margin style options</li>
+                <li>Scroll to index with Start, Center, End, and Auto alignment</li>
+                <li>Yew hooks with passive scroll listeners and container resize observation</li>
+                <li>Safe Rust — no <code>unsafe</code>, no <code>unwrap()</code> or <code>expect()</code> in the library
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Installation</h2>
+            <p>Add to your <code>Cargo.toml</code> (crates.io or path as needed):</p>
+            <p><code>[dependencies]<br />yew = { version = "0.21", features = ["csr"] }<br />yew-virtual = "0.1"</code>
+            </p>
+            <p>Turn on <code>yew</code>’s <code>csr</code> (or <code>ssr</code> / hydration per Yew’s docs); this crate
+                does not ship separate <code>csr</code> / <code>ssr</code> features.</p>
+        </div>
+
+        <div class="card links">
+            <h2>Resources</h2>
+            <p>
+                <a href="https://github.com/Black-Cockpit/yew-virtual">GitHub repository →</a><br />
+                <a href="https://crates.io/crates/yew-virtual">crates.io →</a><br />
+                <a href="https://github.com/Black-Cockpit/yew-virtual/blob/master/CONTRIBUTING.md">Contributing →</a>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        yew-virtual &bull; <a href="https://github.com/Black-Cockpit/yew-virtual/blob/master/LICENSE">MIT License</a>
+        &bull;
+        <a href="https://github.com/Black-Cockpit/yew-virtual">GitHub</a>
+    </footer>
+</body>
+
+</html>

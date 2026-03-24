@@ -1,0 +1,64 @@
+# Yew Virtual — Library Crate Manifest
+#
+# Headless virtualization engine plus Yew hooks (`use_virtualizer`, `use_window_virtualizer`).
+# Published to crates.io as `yew-virtual`; examples and docs live at the repository root.
+
+[package]
+
+# Crates.io package name.
+name = "yew-virtual"
+
+# Semantic version (bump for releases; keep in sync with git tags).
+version = "0.1.0"
+
+# Rust edition for language features.
+edition = "2021"
+
+# Short description shown on crates.io (keep in sync with README tagline).
+description = "A headless virtualization engine for the Yew framework, equivalent to TanStack Virtual"
+
+# SPDX license identifier (full text in repository `LICENSE`).
+license = "MIT"
+
+# Source repository URL for crates.io and docs.rs.
+repository = "https://github.com/Black-Cockpit/yew-virtual"
+
+# README path relative to this manifest (crates.io renders it on the crate page).
+readme = "../../README.md"
+
+# Search keywords on crates.io.
+keywords = ["yew", "virtual", "scroll", "wasm", "virtualization"]
+
+# Crate categories on crates.io.
+categories = ["wasm", "web-programming"]
+
+# Runtime dependencies (versions from workspace `[workspace.dependencies]`).
+[dependencies]
+
+# Yew integration (hooks, re-renders). Libraries do not enable Yew’s `csr` / `ssr`; the app does.
+yew = { workspace = true }
+
+# DOM types, ResizeObserver, scroll APIs, and window access for hooks.
+web-sys = { workspace = true }
+
+# Arrays and timestamps used by ResizeObserver callbacks and scroll reconciliation.
+js-sys = { workspace = true }
+
+# Closures and `JsCast` for event listeners and observers.
+wasm-bindgen = { workspace = true }
+
+# `#[derive(Error)]` for public error types.
+thiserror = { workspace = true }
+
+# Dev-dependencies — only used when running `cargo test -p yew-virtual`.
+[dev-dependencies]
+
+# WASM integration tests when targeting `wasm32-unknown-unknown`.
+wasm-bindgen-test = { workspace = true }
+
+# Table-driven and parameterized tests on native targets.
+rstest = { workspace = true }
+
+# Produce both `rlib` (Rust consumers, tests) and `cdylib` (WASM binary for Trunk apps).
+[lib]
+crate-type = ["cdylib", "rlib"]
