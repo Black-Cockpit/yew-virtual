@@ -18,7 +18,7 @@ members = ["crates/yew-virtual", "examples/tailwind-virtual-list"]
 [workspace.dependencies]
 
 # Yew framework (`default-features = false` so the library stays renderer-agnostic; apps enable `csr` / `ssr` on `yew`).
-yew = { version = "0.21", default-features = false }
+yew = { version = "0.22.0", default-features = false }
 
 # Browser API bindings shared by `yew-virtual` hooks and the Tailwind example.
 web-sys = { version = "0.3.91", features = [
