@@ -76,10 +76,10 @@ impl RangeCalculator {
                     .iter()
                     .any(|pos| *pos < scroll_offset + outer_size)
             {
-                if let Some(item) = measurements.get(end_index) {
-                    if item.lane < lanes {
-                        end_per_lane[item.lane] = item.end;
-                    }
+                if let Some(item) = measurements.get(end_index)
+                    && item.lane < lanes
+                {
+                    end_per_lane[item.lane] = item.end;
                 }
                 end_index += 1;
             }
@@ -87,10 +87,10 @@ impl RangeCalculator {
             // Expand backward until all lanes' visible items closer to the top are included.
             let mut start_per_lane = vec![scroll_offset + outer_size; lanes];
             while start_index > 0 && start_per_lane.iter().any(|pos| *pos >= scroll_offset) {
-                if let Some(item) = measurements.get(start_index) {
-                    if item.lane < lanes {
-                        start_per_lane[item.lane] = item.start;
-                    }
+                if let Some(item) = measurements.get(start_index)
+                    && item.lane < lanes
+                {
+                    start_per_lane[item.lane] = item.start;
                 }
                 start_index -= 1;
             }

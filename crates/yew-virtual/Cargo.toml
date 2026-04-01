@@ -9,10 +9,10 @@
 name = "yew-virtual"
 
 # Semantic version (bump for releases; keep in sync with git tags).
-version = "0.1.0"
+version = "0.2.0"
 
 # Rust edition for language features.
-edition = "2021"
+edition = "2024"
 
 # Short description shown on crates.io (keep in sync with README tagline).
 description = "A headless virtualization engine for the Yew framework, equivalent to TanStack Virtual"
@@ -55,9 +55,6 @@ thiserror = { workspace = true }
 
 # WASM integration tests when targeting `wasm32-unknown-unknown`.
 wasm-bindgen-test = { workspace = true }
-
-# Table-driven and parameterized tests on native targets.
-rstest = { workspace = true }
 
 # Produce both `rlib` (Rust consumers, tests) and `cdylib` (WASM binary for Trunk apps).
 [lib]
