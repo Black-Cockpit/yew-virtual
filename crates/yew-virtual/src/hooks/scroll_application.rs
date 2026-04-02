@@ -6,7 +6,7 @@
 
 use wasm_bindgen::JsCast;
 use web_sys::{
-    window, Element, HtmlElement, ScrollBehavior as WebScrollBehavior, ScrollToOptions, Window,
+    Element, HtmlElement, ScrollBehavior as WebScrollBehavior, ScrollToOptions, Window, window,
 };
 
 use crate::core::scroll_behavior::ScrollBehavior;
@@ -229,7 +229,7 @@ pub fn apply_scroll_compensation(
         ScrollBinding::None => {
             return Err(VirtualizerError::ScrollContainerUnavailable(
                 "scroll target not bound".to_string(),
-            ))
+            ));
         }
         ScrollBinding::Element { element } => read_element_scroll(element, horizontal, is_rtl)?,
         ScrollBinding::Window => read_window_scroll(horizontal, is_rtl)?,

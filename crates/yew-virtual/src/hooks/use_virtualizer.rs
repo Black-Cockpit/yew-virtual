@@ -2,8 +2,8 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use js_sys;
-use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
+use wasm_bindgen::closure::Closure;
 use web_sys::Element;
 use yew::prelude::*;
 
@@ -119,11 +119,7 @@ pub fn use_virtualizer(options: VirtualizerOptions) -> (VirtualizerHandle, NodeR
                     // Read the current scroll position based on direction.
                     let scroll_pos = if is_horizontal {
                         let raw = el_for_scroll.scroll_left() as f64;
-                        if is_rtl {
-                            -raw
-                        } else {
-                            raw
-                        }
+                        if is_rtl { -raw } else { raw }
                     } else {
                         el_for_scroll.scroll_top() as f64
                     };

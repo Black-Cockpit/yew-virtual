@@ -266,14 +266,14 @@ impl Virtualizer {
         }
 
         // Detect lane count changes.
-        if let Some(prev) = self.prev_lanes {
-            if prev != options.lanes {
-                // Clear lane assignments and size cache on lane change.
-                self.lane_assignments.clear();
-                self.item_size_cache.clear(base_size);
-                self.measurements_cache.clear();
-                self.pending_measured_cache_indexes.clear();
-            }
+        if let Some(prev) = self.prev_lanes
+            && prev != options.lanes
+        {
+            // Clear lane assignments and size cache on lane change.
+            self.lane_assignments.clear();
+            self.item_size_cache.clear(base_size);
+            self.measurements_cache.clear();
+            self.pending_measured_cache_indexes.clear();
         }
 
         // Store the previous lanes for future detection.
@@ -385,10 +385,10 @@ impl Virtualizer {
 
         // Initialize from existing measurements (before min).
         for m in 0..self.measurements_cache.len().min(min) {
-            if let Some(item) = self.measurements_cache.get(m) {
-                if item.lane < lanes {
-                    lane_last_index[item.lane] = Some(m);
-                }
+            if let Some(item) = self.measurements_cache.get(m)
+                && item.lane < lanes
+            {
+                lane_last_index[item.lane] = Some(m);
             }
         }
 
@@ -548,10 +548,11 @@ impl Virtualizer {
             let mut idx = measurements.len();
             while idx > 0 && end_by_lane.iter().any(|v| v.is_none()) {
                 idx -= 1;
-                if let Some(item) = measurements.get(idx) {
-                    if item.lane < lanes && end_by_lane[item.lane].is_none() {
-                        end_by_lane[item.lane] = Some(item.end);
-                    }
+                if let Some(item) = measurements.get(idx)
+                    && item.lane < lanes
+                    && end_by_lane[item.lane].is_none()
+                {
+                    end_by_lane[item.lane] = Some(item.end);
                 }
             }
             end_by_lane.iter().filter_map(|v| *v).fold(0.0f64, f64::max)
@@ -703,13 +704,13 @@ impl Virtualizer {
             }
 
             // Adjust scroll position if the item is above the viewport.
-            if allow_resize_adjust && should_adjust {
-                if let Some(item) = self.measurements_cache.get(index) {
-                    if item.start < self.scroll_offset + self.scroll_adjustments {
-                        self.scroll_adjustments += delta;
-                        scroll_compensation = delta;
-                    }
-                }
+            if allow_resize_adjust
+                && should_adjust
+                && let Some(item) = self.measurements_cache.get(index)
+                && item.start < self.scroll_offset + self.scroll_adjustments
+            {
+                self.scroll_adjustments += delta;
+                scroll_compensation = delta;
             }
 
             // Mark this index as pending for incremental rebuild.
@@ -993,12 +994,11 @@ impl Virtualizer {
             (s.index, s.align)
         };
 
-        if let Some(i) = idx {
-            if let Some((off, _)) = self.get_offset_for_index(i, align) {
-                if let Some(s) = self.scroll_state.as_mut() {
-                    s.last_target_offset = off;
-                }
-            }
+        if let Some(i) = idx
+            && let Some((off, _)) = self.get_offset_for_index(i, align)
+            && let Some(s) = self.scroll_state.as_mut()
+        {
+            s.last_target_offset = off;
         }
     }
 
@@ -1126,10 +1126,10 @@ impl Virtualizer {
         // Return a clone from the memo cache when the fingerprint matches.
         {
             let cache = self.virtual_items_cache.borrow();
-            if let Some((cached_key, cached_vec)) = cache.as_ref() {
-                if *cached_key == key {
-                    return cached_vec.clone();
-                }
+            if let Some((cached_key, cached_vec)) = cache.as_ref()
+                && *cached_key == key
+            {
+                return cached_vec.clone();
             }
         }
 
