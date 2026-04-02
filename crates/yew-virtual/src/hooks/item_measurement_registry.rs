@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use std::rc::Rc;
 
 use js_sys::Array;
-use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
+use wasm_bindgen::closure::Closure;
 use web_sys::{Element, ResizeObserver, ResizeObserverEntry};
 
 use crate::core::scroll_direction::ScrollDirection;

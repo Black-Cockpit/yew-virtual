@@ -1,8 +1,8 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use wasm_bindgen::closure::Closure;
 use wasm_bindgen::JsCast;
+use wasm_bindgen::closure::Closure;
 use yew::prelude::*;
 
 use crate::core::scroll_direction::ScrollDirection;
@@ -111,11 +111,7 @@ pub fn use_window_virtualizer(options: VirtualizerOptions) -> VirtualizerHandle 
                 // Read the window scroll position based on direction and RTL.
                 let scroll_pos = if is_horizontal {
                     let raw = win_for_scroll.scroll_x().unwrap_or(0.0);
-                    if is_rtl {
-                        -raw
-                    } else {
-                        raw
-                    }
+                    if is_rtl { -raw } else { raw }
                 } else {
                     win_for_scroll.scroll_y().unwrap_or(0.0)
                 };

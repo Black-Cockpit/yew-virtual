@@ -151,10 +151,6 @@ impl RangeCalculator {
         }
 
         // Return the closest index, backing up one if we overshot.
-        if low > 0 {
-            low - 1
-        } else {
-            0
-        }
+        if low > 0 { low - 1 } else { 0 }
     }
 }

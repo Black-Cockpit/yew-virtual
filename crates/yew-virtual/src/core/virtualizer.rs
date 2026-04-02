@@ -549,7 +549,8 @@ impl Virtualizer {
             while idx > 0 && end_by_lane.iter().any(|v| v.is_none()) {
                 idx -= 1;
                 if let Some(item) = measurements.get(idx)
-                    && item.lane < lanes && end_by_lane[item.lane].is_none()
+                    && item.lane < lanes
+                    && end_by_lane[item.lane].is_none()
                 {
                     end_by_lane[item.lane] = Some(item.end);
                 }
@@ -703,7 +704,8 @@ impl Virtualizer {
             }
 
             // Adjust scroll position if the item is above the viewport.
-            if allow_resize_adjust && should_adjust
+            if allow_resize_adjust
+                && should_adjust
                 && let Some(item) = self.measurements_cache.get(index)
                 && item.start < self.scroll_offset + self.scroll_adjustments
             {
